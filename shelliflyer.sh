@@ -9,6 +9,15 @@ infile=$1
 outfile=$2
 recursions=0
 
+if [ ! -f "$infile" ]
+then
+  echo "ERROR: input file '$infile' not found."
+  exit
+fi
+
+# remove comments except first line
+sed '2,$s/#.*//' $infile > $outfile
+
 function cat_src() {
   local srcfile=$1
   echo "scanning $srcfile ..."
